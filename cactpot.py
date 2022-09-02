@@ -22,6 +22,8 @@ WEIGHTS = {6: 10000,
             24: 3600
         }
 
+# Randomly populates the board
+# Param arr: A 3x3 2D list of zeros
 def populateBoardRand(arr:list):
     stopCond = 0
     possibleChoices = [i for i in range(1, 10)]
@@ -38,6 +40,8 @@ def populateBoardRand(arr:list):
         arr[row][col] = choice
         stopCond += 1
 
+# Helper function to find the number of zeros in a row, or column
+# Param arr: A list of 3 integers
 def getNumZeros(arr:list)->int:
     numZeroes = 0
     for el in arr:
@@ -46,6 +50,9 @@ def getNumZeros(arr:list)->int:
 
     return numZeroes
 
+# Gets the average of the potential earnings of each row or column
+# Param arr: A list of 3 integers
+# Param available: A list of the 5 integers not used on the board
 def getAverage(arr:list, available:list)->int:
     zeros = getNumZeros(arr)
     retMax = 0
@@ -80,6 +87,8 @@ def getAverage(arr:list, available:list)->int:
 
         return sum(potentialEarnings) // len(potentialEarnings)
 
+# Returns a list of integers not currently in the board
+# Param arr: A list of integers already used in the board.
 def getAvailable(arr:list)->list:
     available:int = [1,2,3,4,5,6,7,8,9]
     for el in arr:
@@ -88,6 +97,8 @@ def getAvailable(arr:list)->list:
 
     return available 
 
+# Driver function for finding the averages for each player choice.
+# Param arr: The game board. 3x3 2D list
 def getResults(arr:list)->list:
 
     used:int = []
@@ -102,7 +113,6 @@ def getResults(arr:list)->list:
     for i in range(0, 8):
         tempArr:int = []
         match i:
-            #Rows
             case 0:
                 results.append(("Row 1", getAverage(arr[0], available)))
             case 1:
@@ -133,7 +143,7 @@ def getResults(arr:list)->list:
     
     return results
 
-
+# MAIN FUNCTION.
 def main():
     rows, cols = (3,3)
     board = [[0 for _ in range(cols)] for _ in range(rows)]
